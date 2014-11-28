@@ -100,10 +100,13 @@ static Class FXFormClassFromString(NSString *className)
     if (className && !cls)
     {
         //might be a Swift class; time for some hackery!
-        className = [@[[[NSBundle mainBundle] objectForInfoDictionaryKey:(id)kCFBundleNameKey],
-                       className] componentsJoinedByString:@"."];
-        //try again
-        cls = NSClassFromString(className);
+        NSString *bundleName = [[NSBundle mainBundle] objectForInfoDictionaryKey:(id)kCFBundleNameKey];
+        if (bundleName)
+        {
+            className = [@[bundleName, className] componentsJoinedByString:@"."];
+            //try again
+            cls = NSClassFromString(className);
+        }
     }
     return cls;
 }
