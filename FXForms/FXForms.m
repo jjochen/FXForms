@@ -2144,6 +2144,16 @@ static void FXFormPreprocessFieldDictionary(NSMutableDictionary *dictionary)
         
         [tableView endUpdates];
     }
+    else if (editingStyle == UITableViewCellEditingStyleInsert)
+    {
+        [tableView beginUpdates];
+
+        FXFormSection *section = [self sectionAtIndex:indexPath.section];
+        [section addNewField];
+        [tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+
+        [tableView endUpdates];
+    }
 }
 
 - (void)tableView:(__unused UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
