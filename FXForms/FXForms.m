@@ -3139,6 +3139,7 @@ static void FXFormPreprocessFieldDictionary(NSMutableDictionary *dictionary)
     
     //scroll to show cursor
     CGRect cursorRect = [self.textView caretRectForPosition:self.textView.selectedTextRange.end];
+    cursorRect = CGRectInset(cursorRect, 0, -10);
     [tableView scrollRectToVisible:[tableView convertRect:cursorRect fromView:self.textView] animated:YES];
 }
 
