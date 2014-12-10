@@ -3139,8 +3139,13 @@ static void FXFormPreprocessFieldDictionary(NSMutableDictionary *dictionary)
     
     //scroll to show cursor
     CGRect cursorRect = [self.textView caretRectForPosition:self.textView.selectedTextRange.end];
-    cursorRect = CGRectInset(cursorRect, 0, -10);
-    [tableView scrollRectToVisible:[tableView convertRect:cursorRect fromView:self.textView] animated:YES];
+    CGRect rectInTableView = [tableView convertRect:cursorRect fromView:self.textView];
+    NSInteger section = [tableView indexPathForCell:self].section;
+    CGFloat headerHeight = [tableView.delegate tableView:tableView heightForHeaderInSection:section];
+    static CGFloat const additionalSpacing = 8.0f;
+    rectInTableView.size.height += headerHeight + 2 * additionalSpacing;
+    rectInTableView.origin.y -= headerHeight + additionalSpacing;
+    [tableView scrollRectToVisible:rectInTableView animated:YES];
 }
 
 - (void)textViewDidEndEditing:(__unused UITextView *)textView
