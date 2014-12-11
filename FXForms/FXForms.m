@@ -3454,6 +3454,7 @@ static void FXFormPreprocessFieldDictionary(NSMutableDictionary *dictionary)
         self.imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         [controller presentViewController:self.imagePickerController animated:YES completion:nil];
     }
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
     else if ([UIAlertController class])
     {
         UIAlertControllerStyle style = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)? UIAlertControllerStyleAlert: UIAlertControllerStyleActionSheet;
@@ -3472,6 +3473,7 @@ static void FXFormPreprocessFieldDictionary(NSMutableDictionary *dictionary)
         self.controller = controller;
         [controller presentViewController:alert animated:YES completion:NULL];
     }
+#endif
     else
     {
         self.controller = controller;
